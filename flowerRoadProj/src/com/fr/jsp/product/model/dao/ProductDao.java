@@ -150,7 +150,7 @@ public class ProductDao {
 				p.setProductPrice(rset.getInt(4));
 				p.setReviewCount(rset.getInt(5));
 				p.setImage(rset.getString(6));
-				
+				p.setProductTypeName(rset.getString(7));
 
 				result.add(p);
 
@@ -251,7 +251,7 @@ public class ProductDao {
 				p.setProductPrice(rset.getInt(4));
 				p.setReviewCount(rset.getInt(5));
 				p.setImage(rset.getString(6));
-				
+				p.setProductTypeName(rset.getString(7));
 
 				result.add(p);
 
@@ -343,9 +343,6 @@ public class ProductDao {
 		ArrayList<ProductSimple> result = new ArrayList<ProductSimple>();
 		ProductSimple p = null;
 
-		
-	
-		
 		try {
 			
 			String query = prop.getProperty("getpagedEventTypeOrderdProductList");
@@ -368,7 +365,7 @@ public class ProductDao {
 				p.setProductPrice(rset.getInt(4));
 				p.setReviewCount(rset.getInt(5));
 				p.setImage(rset.getString(6));
-				
+				p.setProductTypeName(rset.getString(7));
 
 				result.add(p);
 
@@ -415,7 +412,7 @@ public class ProductDao {
 				p.setProductPrice(rset.getInt(4));
 				p.setReviewCount(rset.getInt(5));
 				p.setImage(rset.getString(6));
-				
+				p.setProductTypeName(rset.getString(7));
 
 				result.add(p);
 
@@ -507,6 +504,7 @@ public class ProductDao {
 				p.setProductPrice(rset.getInt(4));
 				p.setReviewCount(rset.getInt(5));
 				p.setImage(rset.getString(6));
+				p.setProductTypeName(rset.getString(7));
 				
 
 				result.add(p);

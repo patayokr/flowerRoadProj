@@ -8,10 +8,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.fr.jsp.board.model.service.ReviewBoardService;
 import com.fr.jsp.board.model.vo.ReviewBoard;
 import com.fr.jsp.common.PageInfo;
+import com.fr.jsp.common.model.dao.AccessLogDao;
+import com.fr.jsp.common.model.service.AccessLogService;
 import com.fr.jsp.product.model.service.ProductService;
 import com.fr.jsp.product.model.vo.ProductDetail;
 import com.fr.jsp.product.model.vo.ProductSimple;
@@ -41,6 +44,7 @@ public class ProductDetailServlet extends HttpServlet {
 		ArrayList<ReviewBoard> reviewList = null;
 		ArrayList<ProductSimple> relatedCategoryProduct= null;
 		ArrayList<ProductSimple> optionProduct = null;
+		String memberNum = (String)request.getSession(false).getAttribute("memberNum");
 		
 		ProductDetail p = null;
 	
@@ -61,7 +65,14 @@ public class ProductDetailServlet extends HttpServlet {
 		if (request.getParameter("currPage") != null) {				
 			currPage = Integer.parseInt(request.getParameter("currPage"));
 		}
-
+		
+		//접속 로그 테이블에 추가
+		AccessLogService as = new AccessLogService();
+		
+		if(as.insertLog(memberNum)<0)
+			System.out.println("logInsert Error");
+			
+	
 		//표시할 옵션 프로덕트 정보 가져오기
 		optionProduct = ps.getOptionProductList();
 		

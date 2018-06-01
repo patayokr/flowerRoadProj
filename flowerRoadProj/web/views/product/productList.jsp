@@ -153,14 +153,18 @@
         						<h5 class="col-lg-12 font-gray">리뷰 <span><%=list.get(i).getReviewCount() %></span></h5>  
         						<div class="col-lg-12 ">  
         							<%System.out.println(list.get(i).getProductTypeName()); %>
-        							<%if(list.get(i).getProductTypeName()!="디저트"&&list.get(i).getProductTypeName()!="메시지태그"){ %>  						
-        							<a class="col-lg-4 btn btn-default" role="button" onclick="addBasket('<%=list.get(i).getProductNum()%>');">장바구니</a> 
-        							
+        							<%if(!list.get(i).getProductTypeName().equals("디저트")&&
+        									!list.get(i).getProductTypeName().equals("메시지태그")&&
+        									!list.get(i).getProductTypeName().equals("카드")) {%>
+        							 <a class="col-lg-4 btn btn-default" role="button" onclick="addBasket('<%=list.get(i).getProductNum()%>');">장바구니</a> 
         							<a class="col-lg-7 col-lg-offset-1 btn btn-primary" role="button" 
         							onclick="location.href='<%=request.getContextPath()%>/productDetail.do?productNum=+<%=list.get(i).getProductNum()%>'">바로구매</a>
-        							 <%}else{ %>
-        							 	<a class="col-lg-12 btn btn-default" role="button" onclick="addBasket('<%=list.get(i).getProductNum()%>');">장바구니</a>
-        							 <%} %>
+        							<%}else{ %>
+        							 <a class="col-lg-12 btn btn-default" role="button" onclick="addBasket('<%=list.get(i).getProductNum()%>');">장바구니</a> 
+        							
+        							<%} %>
+        							 	
+        							
       							</div>	 
       						</div>
     					</div>

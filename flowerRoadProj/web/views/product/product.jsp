@@ -631,12 +631,17 @@ option {
 
 				<div class="col-xs-12">
 					<div >
-						<label for="option_product" class="control-label">옵션상품</label> <select
+						<label for="option_product" class="control-label">옵션상품</label> 
+					<%if(!p.getProductCategoryName().equals("디저트")&&
+        					!p.getProductCategoryName().equals("메시지태그")&&
+        					!p.getProductCategoryName().equals("카드")&&
+        					!p.getProductCategoryName().equals("화환")) {%>
+						<select
 							name="option_product" id="option_product"
 							class="form-control input-lg" onchange="onChangeOption();">
 							<option value="none">---옵션 상품을 선택해 주세요---</option>
 						</select>
-
+					
 					<div >
 						<div class="col-xs-12 margin_top" id="optionDiv"></div>
 					</div>
@@ -645,15 +650,21 @@ option {
 						<div class="col-xs-offset-1 alert col-xs-10" id="infoMessage">
 							</div>
 					</div>
-
+					<%} %>
 					<hr>
 
 					<div class="form-group col-xs-12">
 
-						<label for="to_basket" class="control-label sr-only">장바구니</label>
+						
+						
+						<%if(!p.getProductCategoryName().equals("디저트")&&
+        									!p.getProductCategoryName().equals("메시지태그")&&
+        									!p.getProductCategoryName().equals("카드")) {%>
+        				<label for="to_basket" class="control-label sr-only">장바구니</label>
 						<button class="btn btn-lg btn-default col-xs-offset-1 col-xs-4"
 							id="to_basket" onclick="addToBasket('<%=p.getProductNum()%>')">장바구니</button>
 						<label for="to_purchase" class="control-label sr-only">구매하기</label>
+						
 						
 						<form id="purchase" action="<%=request.getContextPath()%>/payment.bk" method="post">
 							<input type="hidden" value="" name="sub_product_num"/>
@@ -663,6 +674,11 @@ option {
 							<button class="btn btn-primary btn-lg col-xs-offset-1 col-xs-6"
 							 type="button" id="to_purchase" onclick="purchase();">구매하기</button>
 						</form>
+						<%} else {%>
+							<label for="to_basket" class="control-label sr-only">장바구니</label>
+							<button class="btn btn-lg btn-default col-xs-offset-2 col-xs-8"
+							id="to_basket" onclick="addToBasket('<%=p.getProductNum()%>')">장바구니</button>
+						<%} %>
 						
 					</div>
 				</div>
