@@ -1,4 +1,4 @@
-<%@page import="oracle.net.aso.i"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
 	import="java.util.* , com.fr.jsp.board.model.vo.*,com.fr.jsp.product.model.vo.* ,com.fr.jsp.common.PageInfo , com.fr.jsp.myShoppingBasket.model.vo.*"%>
@@ -13,6 +13,8 @@
 	
 	
 %>
+<!--  -->
+
 <!DOCTYPE html>
 
 <html lang="ko">
@@ -928,7 +930,8 @@ option {
 
 
 	<%@include file="../common/footer.jsp"%>
-
+	
+	
 
 </body>
 
