@@ -22,7 +22,7 @@
             font-weight: bold;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width:768px) {
             #no1,
             #no2 {
                 width: 750px;
@@ -35,6 +35,11 @@
       background-color: rgba(255, 254, 254, 0.9);
     }
     .btn {cursor:pointer;}
+    
+    .test{
+    border:1px solid;
+    }
+    
     </style>
 <%-- <script>
 	function mainGo(){
@@ -53,7 +58,8 @@
     <br>
     <div class="visible-md">md</div>
     <div class="visible-sm">sm</div>
-    <nav class="navbar navbar-default navbar-fixed-top" id="naaaaav">
+    
+    <nav class="navbar navbar-default navbar-fixed-top test" id="naaaaav">
         <div class="container-fluid">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header col-xs-2 col-sm-2 col-md-2 col-lg-2">
@@ -67,8 +73,8 @@
                 </div>
                 <div style="text-align:center; display:inline-block;" id="no2" class="col-sm-12 col-xs-12 col-lg-12 col-md-12">
 
-                    <ul class="nav navbar-nav navbar-bottom-font col-sm-12 col-xs-12 col-lg-12 col-md-12">
-                        <li class="col-sm-2 col-xs-2 col-sm-offset-1 col-xs-offset-1">
+                    <ul class="nav navbar-nav navbar-bottom-font col-sm-12 col-xs-12 col-lg-12 col-md-12 test">
+                        <li class="col-sm-2 col-xs-2 col-sm-offset-1 col-xs-offset-1 test" >
                             <a href="<%=request.getContextPath()%>/productList.do?category=꽃다발">꽃다발</a>
                         </li>
                         <li class="col-sm-2 col-xs-2">
@@ -87,10 +93,10 @@
                 </div>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 test">
                 <div class="collapse navbar-collapse">
                    
-                        <ul class="nav navbar-nav navbar-right">
+                        <ul class="nav navbar-nav navbar-right test">
                         <%if(memberNum==null){ %>
                             <li>
                                 <a href="<%=request.getContextPath()%>/views/mainPage/login.jsp">로그인</a>

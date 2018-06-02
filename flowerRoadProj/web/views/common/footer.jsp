@@ -27,20 +27,20 @@
                 <div class="col-sm-6 col-md-6 col-lg-5">
                   <ul>
                     <li>
-                      <a href="#" style="color:black;">회사 소개</a>
-                    </li>&nbsp;&nbsp;&nbsp;
+                      <a href="#" style="color:black;">회사 소개</a>&nbsp;&nbsp;&nbsp;
+                    </li>
                     <li>
-                      <a href="#" style="color:black;">이용 약관</a>
-                    </li>&nbsp;&nbsp;&nbsp;
+                      <a href="#" style="color:black;">이용 약관</a>&nbsp;&nbsp;&nbsp;
+                    </li>
                     <li>
-                      <a href="#" style="color:black;">오시는길</a>
-                    </li>&nbsp;&nbsp;&nbsp;
+                      <a href="#" style="color:black;">오시는길</a>&nbsp;&nbsp;&nbsp;
+                    </li>
                     <li>
-                      <a href="#" style="color:black;">FAQ</a>
-                    </li>&nbsp;&nbsp;&nbsp;
+                      <a href="#" style="color:black;">FAQ</a>&nbsp;&nbsp;&nbsp;
+                    </li>
                     <li>
-                      <a href="#" style="color:black;">공지사항</a>
-                    </li>&nbsp;&nbsp;&nbsp;
+                      <a href="#" style="color:black;">공지사항</a>&nbsp;&nbsp;&nbsp;
+                    </li>
                   </ul>
                 </div>
                 <div class="col-sm-3 col-md-3 col-lg-3"></div>

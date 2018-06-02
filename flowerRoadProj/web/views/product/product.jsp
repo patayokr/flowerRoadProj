@@ -94,6 +94,7 @@ option {
 
 body{
   position: relative;
+  margin-top : 70px;
 }
 
 
@@ -173,14 +174,18 @@ body{
 
 	});
 
+	
+	//스티키 NAVBAR
   	 function AdjustHeader(){
   		 console.log($(window).scrollTop());
- 	    if ($(window).scrollTop() > 500) {
+ 	    if ($(window).scrollTop() > 600) {
  	      if (!$navbar.hasClass("navbar-fixed-top")) {
  	        $navbar.addClass("navbar-fixed-top");
+ 	        $navbar.css("top","100px");
  	      }
  	    } else {
  	      $navbar.removeClass("navbar-fixed-top");
+ 	     $navbar.css("top","0px");
  	    }
  	  }
 
@@ -626,7 +631,7 @@ body{
 
 		<div class="row">
 
-			<div class="col-md-6 col-sm-6 col-xs-6 col-lg-6">
+			<div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
 				<img
 					src="<%=request.getContextPath()%>/resources/images/product/<%=p.getImages().get(0)%>"
 					class="img-responsive thumbnail center-block" alt="">
@@ -648,7 +653,7 @@ body{
 			</div>
 
 
-			<div class="col-xs-6 col-md-6 col-sm-6 col-lg-6 thumbnail">
+			<div class="col-xs-12 col-md-6 col-sm-6 col-lg-6 thumbnail">
 				<div class="caption">
 					<h3 id="product_name" class="thumbnail-label "></h3>
 					<h4 id="product_price" class="thumbnail-label"></h4>
@@ -719,9 +724,9 @@ body{
 	</div>
 
 	<div class="container">
-	  <nav class="navbar navbar-default" id="mNavbar">
+	  <nav class="navbar navbar-default " id="mNavbar">
 	    <div class="container">
-	      <div class="navbar-header">
+	      <div class="navbar-header ">
 	        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false" id="toggle">
 	          <span class="sr-only">Toggle navigation</span>
 	          <span class="icon-bar"></span>
@@ -731,7 +736,7 @@ body{
 	      </div>
 	
 	      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-	        <ul class="nav navbar-nav">
+	        <ul class="nav navbar-nav navbar-right">
 	          <li><a href="#">Home</a>
 	          </li>
 	          <li><a href="#section2">Services</a>
