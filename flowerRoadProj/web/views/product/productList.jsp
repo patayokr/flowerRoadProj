@@ -152,7 +152,7 @@
         						<h4 class=" col-lg-12 "><%=list.get(i).getProductPrice() %>원</h4>
         						<h5 class="col-lg-12 font-gray">리뷰 <span><%=list.get(i).getReviewCount() %></span></h5>  
         						<div class="col-lg-12 ">  
-        							<%System.out.println(list.get(i).getProductTypeName()); %>
+        							
         							<%if(!list.get(i).getProductTypeName().equals("디저트")&&
         									!list.get(i).getProductTypeName().equals("메시지태그")&&
         									!list.get(i).getProductTypeName().equals("카드")) {%>

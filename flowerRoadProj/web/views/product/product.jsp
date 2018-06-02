@@ -1,4 +1,4 @@
-<%@page import="oracle.net.aso.i"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"
 	import="java.util.* , com.fr.jsp.board.model.vo.*,com.fr.jsp.product.model.vo.* ,com.fr.jsp.common.PageInfo , com.fr.jsp.myShoppingBasket.model.vo.*"%>
@@ -91,9 +91,18 @@ option {
 .margin_top{
 	margin-top:15px;
 }
+
+body{
+  position: relative;
+}
+
+
+
 </style>
 
 <script>
+
+
 	//로드할 때 실행되야 하는 함수들 모음
 	$(function() {
 
@@ -153,11 +162,27 @@ option {
 		//찜 리스트에 들어가 있으면 버튼 초기상태 변경
 		checkInFavList('<%=p.getProductNum()%>');
 		
-	
+		
+		//stick navbar setting
+		 $navbar = $("#mNavbar");
+	  
+	 	 AdjustHeader(); // Incase the user loads the page from halfway down (or something);
+	  	$(window).scroll(function() {
+	      AdjustHeader();
+	  	});
 
 	});
 
-	
+  	 function AdjustHeader(){
+  		 console.log($(window).scrollTop());
+ 	    if ($(window).scrollTop() > 500) {
+ 	      if (!$navbar.hasClass("navbar-fixed-top")) {
+ 	        $navbar.addClass("navbar-fixed-top");
+ 	      }
+ 	    } else {
+ 	      $navbar.removeClass("navbar-fixed-top");
+ 	    }
+ 	  }
 
 	/*옵션을 셀렉트로 선택했을때 붙이기*/
 	function onChangeOption() {
@@ -586,7 +611,7 @@ option {
 </script>
 </head>
 
-<body>
+<body data-spy="scroll" data-target=".navbar-example">
 
 	<%@include file="../common/header.jsp"%>
 	<br />
@@ -680,21 +705,44 @@ option {
 							id="to_basket" onclick="addToBasket('<%=p.getProductNum()%>')">장바구니</button>
 						<%} %>
 						
+						</div>
 					</div>
+
 				</div>
 
 			</div>
-
 		</div>
-
-
 	</div>
-
 	
 	<div class="container">
 		<hr class="review_divider">
 	</div>
 
+	<div class="container">
+	  <nav class="navbar navbar-default" id="mNavbar">
+	    <div class="container">
+	      <div class="navbar-header">
+	        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false" id="toggle">
+	          <span class="sr-only">Toggle navigation</span>
+	          <span class="icon-bar"></span>
+	          <span class="icon-bar"></span>
+	          <span class="icon-bar"></span>
+	        </button>
+	      </div>
+	
+	      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	        <ul class="nav navbar-nav">
+	          <li><a href="#">Home</a>
+	          </li>
+	          <li><a href="#section2">Services</a>
+	          </li>
+	          <li><a href="#section3">Contact</a>
+	          </li>
+	        </ul>
+	      </div>
+	    </div>
+	  </nav>
+	</div>
 
 
 	<%

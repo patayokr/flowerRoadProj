@@ -105,7 +105,7 @@
 					<td><%=i--%></td>
 					<td><%=o.getOrdered_date()%></td>
 					<td><%=o.getProduct_num()%></td>
-					<td><%=o.getProduct_cost()%></td>
+					<%-- <td><%=o.getProduct_cost()%></td> --%>
 					<td><%=o.getAnonymous_delivery()%></td>
 					<td><%=o.getOrder_state_code()%></td>
 				</tr>
