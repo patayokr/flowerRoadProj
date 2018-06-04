@@ -1,4 +1,4 @@
-package com.fr.jsp.admin.controller;
+package com.fr.jsp.member.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;

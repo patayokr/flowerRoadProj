@@ -1,4 +1,4 @@
-package com.fr.jsp.admin.controller;
+package com.fr.jsp.member.controller;
 
 import java.io.IOException;
 
@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.fr.jsp.admin.model.service.AdminService;
 import com.fr.jsp.board.model.service.ReviewBoardService;
 import com.fr.jsp.board.model.service.UserQuestionBoardService;
+import com.fr.jsp.member.model.service.AdminService;
 import com.fr.jsp.member.model.vo.Member;
 import com.fr.jsp.order.model.service.OrderService;
 
@@ -25,13 +25,13 @@ public class AdminMainServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
-		String adminId = (String) session.getAttribute("adminId");
+		String adminNum = (String) session.getAttribute("adminNum");
 		
 		AdminService as = new AdminService();
 		// 관리자 메인 이름, 사진
-		Member admin = as.adminData(adminId);
+		Member admin = as.adminData(adminNum);
 		// 관리자 메시지 알림
-		int admin_messageCount = as.admin_uncheckedMessage(adminId);
+		int admin_messageCount = as.admin_uncheckedMessage(adminNum);
 		// Connection close
 		as.closeCon();
 		

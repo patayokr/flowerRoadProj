@@ -1,4 +1,4 @@
-package com.fr.jsp.admin.controller;
+package com.fr.jsp.member.controller;
 
 import java.io.IOException;
 
@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.fr.jsp.admin.model.service.AdminService;
+import com.fr.jsp.member.model.service.AdminService;
 import com.fr.jsp.member.model.vo.Member;
 import com.google.gson.Gson;
 
@@ -23,15 +23,13 @@ public class AdminSecondPwCheckServlert extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String adminId = request.getParameter("adminId");
-		String answerPw = request.getParameter("answerPw");
-		System.out.println(adminId);
-		System.out.println(answerPw);
-		HttpSession session = request.getSession();
-		session.setAttribute("adminId", adminId);
+		String adminNum = null;
+
+		HttpSession session = request.getSession(false);
+		adminNum = (String) session.getAttribute("adminNum");
 		
 		AdminService as = new AdminService();
-		Member admin = as.adminSecondPwCheck(adminId, answerPw);
+		Member admin = as.adminSecondPwCheck(adminNum);
 		
 		response.setContentType("application/json; charset=UTF-8");
 		new Gson().toJson(admin, response.getWriter());
