@@ -10,8 +10,6 @@
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	ProductDetail p = (ProductDetail)request.getAttribute("product");
 	
-	
-	
 %>
 <!DOCTYPE html>
 
@@ -97,7 +95,9 @@ body{
   margin-top : 70px;
 }
 
-
+.test{
+	border:1px solid;
+}
 
 </style>
 
@@ -171,6 +171,9 @@ body{
 	  	$(window).scroll(function() {
 	      AdjustHeader();
 	  	});
+	  	
+	  	//스크롤 스파이 세팅
+	  	$('body').scrollspy({ target: '#mNavbar' })
 
 	});
 
@@ -181,7 +184,7 @@ body{
  	    if ($(window).scrollTop() > 600) {
  	      if (!$navbar.hasClass("navbar-fixed-top")) {
  	        $navbar.addClass("navbar-fixed-top");
- 	        $navbar.css("top","100px");
+ 	        $navbar.css("top","135px");
  	      }
  	    } else {
  	      $navbar.removeClass("navbar-fixed-top");
@@ -617,10 +620,10 @@ body{
 </script>
 </head>
 
-<body data-spy="scroll" data-target=".navbar-example">
-
+<body data-spy="scroll" data-target="#mNavbar" data-offset="400">
+	<br id="page_start"/>
 	<%@include file="../common/header.jsp"%>
-	<br />
+	
 	<br />
 	<br />
 	<br />
@@ -635,7 +638,7 @@ body{
 			<div class="col-md-6 col-sm-6 col-xs-12 col-lg-6">
 				<img
 					src="<%=request.getContextPath()%>/resources/images/product/<%=p.getImages().get(0)%>"
-					class="img-responsive thumbnail center-block" alt="">
+					class="img-responsive thumbnail center-block" id="product_image">
 					
 			
 				<div class="row ">
@@ -721,14 +724,15 @@ body{
 	</div>
 	
 	<div class="container">
-		<hr class="review_divider">
+		<hr class="review_divider" id="content_start">
 	</div>
 
+	
 	<div class="container">
-	  <nav class="navbar navbar-default " id="mNavbar">
+	  <nav class="navbar navbar-default" id="mNavbar">
 	    <div class="container">
 	      <div class="navbar-header ">
-	        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false" id="toggle">
+	        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false" id="toggle">
 	          <span class="sr-only">Toggle navigation</span>
 	          <span class="icon-bar"></span>
 	          <span class="icon-bar"></span>
@@ -736,14 +740,11 @@ body{
 	        </button>
 	      </div>
 	
-	      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-	        <ul class="nav navbar-nav navbar-right">
-	          <li><a href="#">Home</a>
-	          </li>
-	          <li><a href="#section2">Services</a>
-	          </li>
-	          <li><a href="#section3">Contact</a>
-	          </li>
+	      <div class="collapse navbar-collapse" id="navbar-collapse-1">
+	        <ul class="nav navbar-nav navbar-right ">
+	          <li class="active"><a href="#page_start" >상품구매</a></li>
+	          <li><a href="#content_start">상품 설명</a></li>
+	          <li><a href="#review_start">리뷰</a></li>
 	        </ul>
 	      </div>
 	    </div>
@@ -810,6 +811,7 @@ body{
 				<h4>
 					<b>결제 안내</b>
 				</h4>
+				<hr id="review_start" style="visibility: hidden;">
 				가상계좌 입금이 확인되지 않으면 취소될 수 있습니다. <br> 주문 취소/변경 (콜센터 02-512-8180) <br>
 				<br>
 				<h4>
