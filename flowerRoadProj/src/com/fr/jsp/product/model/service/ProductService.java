@@ -4,6 +4,7 @@ import static com.fr.jdbc.common.JDBCTemplate.*;
 
 import java.sql.Connection;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import com.fr.jsp.common.PageInfo;
 import com.fr.jsp.product.model.dao.ProductDao;
@@ -52,6 +53,33 @@ public class ProductService {
 		
 		return result;
 	}
+	
+	public int getListCount(String event,String category){
+		con = getConnection();
+		
+		int result= 0;
+		
+		String columnName="";
+		String columnValue="";
+		String tableName= "";
+		
+		if(!event.equals("none")){
+			columnName=  "PRODUCT_EVENT";
+			columnValue = event;
+			tableName = "PRODUCT_SIMPLE_EVENT";
+		}
+		
+		if(!category.equals("none")){
+			columnName=  "CATEGORY_NAME";
+			columnValue = category;
+			tableName= "PRODUCT_SIMPLE";
+		}
+		
+		
+		return pDao.getProductCount(con,tableName,columnName,columnValue);
+		
+		
+	}
 
 	
 	//페이지 네이션 적용 상품 리스트 가져오기
@@ -82,88 +110,28 @@ public class ProductService {
 		return p;
 	}
 
-	
-	//특정 카테고리에 해당하는 상품의 리스트를 가져오기
-	public ArrayList<ProductSimple> getCategorizedProduct(String category,PageInfo pi) {
-		ArrayList<ProductSimple> list = null;
-		con = getConnection();
-		
-		list = pDao.getCategorizedProductList(con,category,pi);
-		
-		if(list!=null)commit(con);
-		else rollback(con);
-		
-		return list;
-	}
 
 	
-	//특정 이벤트속성을 가지는 상품의 리스트 가져오기
-	public ArrayList<ProductSimple> getEventTypeProductList(String event ,PageInfo pi) {
-		
-		ArrayList<ProductSimple> list = null;
-		con = getConnection();
-		
-		list =pDao.getEventTypeProductList(con,event,pi);
-		
-		if(list!=null)commit(con);
-		else rollback(con);
-		
-		return list;
-	}
-
-	
-	//특정 이벤트속성을 가지는 상품의 갯수 가져오기
-	public int getEventListCount(String event) {
-		con = getConnection();
-		
-		int result= 0;
-		
-		result = pDao.getEventProductCount(con,event);
-		
-		
-		return result;
-	}
-
-
-	public int getCategoryListCount(String category) {
-		Connection con = getConnection();
-		
-		int result= 0;
-		
-		result = new ProductDao().getCategoryProductCount(con,category);
-		return result;
-	}
-
-
-	public ArrayList<ProductSimple> getEventTypeOrderdProductList(String event, String order, PageInfo pi) {
-		ArrayList<ProductSimple> list = null;
-		con = getConnection();
-		
-		String orderQuery = null;
-		if(order.equals("review"))
-			orderQuery=" ORDER BY 8 DESC";
-		else if(order.equals("priceDesc"))
-			orderQuery=" ORDER BY 3 DESC";
-		else if(order.equals("priceAsc"))
-			orderQuery=" ORDER BY 3";
-		else if(order.equals("byName"))
-			orderQuery=" ORDER BY 2";
-		
-		list =pDao.getEventOrderdProductList(con,event,orderQuery,pi);
-		
-		if(list!=null)commit(con);
-		else rollback(con);
-		
-		return list;
-	}
-
-
-	public ArrayList<ProductSimple> getCategorizedOrderdProductList(String category, String order, PageInfo pi) {
-		
+	public ArrayList<ProductSimple> getOrderdProductList(String event, String category, String order) {
 		ArrayList<ProductSimple> list =null;
 		con = getConnection();
 		
+		String columnName="";
+		String columnValue="";
+		String tableName= "";
 		String orderQuery = null;
+		if(!event.equals("none")){
+			columnName=  "PRODUCT_EVENT";
+			columnValue = event;
+			tableName = "PRODUCT_SIMPLE_EVENT";
+		}
+		
+		if(!category.equals("none")){
+			columnName=  "CATEGORY_NAME";
+			columnValue = category;
+			tableName= "PRODUCT_SIMPLE";
+		}
+		
 		if(order.equals("review"))
 			orderQuery=" ORDER BY 7 DESC";
 		else if(order.equals("priceDesc"))
@@ -174,23 +142,102 @@ public class ProductService {
 			orderQuery=" ORDER BY 2";
 		else orderQuery ="";
 		
-		list = pDao.getCategorizedOrderdProductList(con,category,orderQuery,pi);
+		list=pDao.getOrderedProductList(con,tableName ,columnName,columnValue,orderQuery);
+		
+		if(list!=null)commit(con);
+		else rollback(con);
+		
+		return list;
+		
+	}
+
+	public ArrayList<ProductSimple> getProductList(String event, String category) {
+		
+		ArrayList<ProductSimple> list =null;
+		con = getConnection();
+		
+		String columnName="";
+		String columnValue="";
+		String tableName= "";
+		if(!event.equals("none")){
+			columnName=  "PRODUCT_EVENT";
+			columnValue = event;
+			tableName = "PRODUCT_SIMPLE_EVENT";
+		}
+		
+		if(!category.equals("none")){
+			columnName=  "CATEGORY_NAME";
+			columnValue = category;
+			tableName= "PRODUCT_SIMPLE";
+		}
+		
+		list=pDao.getProductList(con,tableName ,columnName,columnValue);
 		
 		if(list!=null)commit(con);
 		else rollback(con);
 		
 		return list;
 	}
-
+	
+	
 
 	public ArrayList<ProductSimple> getOptionProductList() {
-		Connection con = getConnection();
+		con = getConnection();
 		
 		ArrayList<ProductSimple> list;
 		
 		list = new ProductDao().getOptionProductList(con);
 		return list;
 	}
+	
+
+	public ArrayList<ProductSimple> searchProduct(String event, String category, String keyword) {
+		con = getConnection();
+		
+		ArrayList<ProductSimple> list;
+		
+		String columnName="";
+		String columnValue="";
+		String tableName= "";
+		
+		if(!event.equals("none")){
+			columnName=  "PRODUCT_EVENT";
+			columnValue = event;
+			tableName = "PRODUCT_SIMPLE_EVENT";
+		}
+		
+		if(!category.equals("none")){
+			columnName=  "CATEGORY_NAME";
+			columnValue = category;
+			tableName= "PRODUCT_SIMPLE";
+		}
+		
+		
+		list = new ProductDao().searchProduct(con,tableName,columnName,columnValue,keyword);
+		return list;
+	}
+	
+	
+	public ArrayList<ProductSimple> getOrderdProductList(ArrayList<ProductSimple> sessionList, String order) {
+		
+		
+		if(order.equals("review")){
+			Collections.sort(sessionList,ProductSimple.reviewComparator);
+		}else if(order.equals("priceAsc")){
+			Collections.sort(sessionList,ProductSimple.priceAscComparator);
+		}else if(order.equals("priceDesc")){
+			Collections.sort(sessionList,ProductSimple.priceDescComparator);
+		}else if(order.equals("byName")){
+			Collections.sort(sessionList,ProductSimple.priceNameComparator);
+		}
+			
+		
+		return sessionList;
+	
+	}
+	
+	
+	
 	
 	// Connection close Method
 		public void closeCon() {
@@ -217,5 +264,6 @@ public class ProductService {
 			int admin_todayProductOrderCount = pDao.admin_todayProductOrderCount(con);
 			return admin_todayProductOrderCount;
 		}
+
 
 }

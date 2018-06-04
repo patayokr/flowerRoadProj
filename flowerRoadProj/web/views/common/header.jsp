@@ -116,15 +116,8 @@
                                 <a href="<%=request.getContextPath()%>/select.bk">장바구니</a>
                             </li>
                         </ul>
-                    
-                    <br><br><br><br>
-                        <form class="navbar-form navbar-right" role="search" style="width:310px">
-                            <div class="form-group">
-                                <input type="text" class="form-control" placeholder="검색">
-                                <button type="submit" class="btn btn-default">검색</button>
-                            </div>
-                        </form>
-                  
+               
+               
                 </div>
 
             </div>

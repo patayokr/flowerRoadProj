@@ -8,22 +8,23 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.fr.jsp.common.PageInfo;
 import com.fr.jsp.product.model.service.ProductService;
 import com.fr.jsp.product.model.vo.ProductSimple;
 
 /**
- * Servlet implementation class SelectCategorizedProductListServlet
+ * Servlet implementation class SortingProductServlet
  */
-@WebServlet("/productList2.do")
-public class SelectEventTypeProductListServlet extends HttpServlet {
+@WebServlet("/sortProduct.do")
+public class SortingProductServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SelectEventTypeProductListServlet() {
+    public SortingProductServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,43 +34,43 @@ public class SelectEventTypeProductListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String event ="생일";
-		event  = request.getParameter("event");
-		
-		ArrayList<ProductSimple> list = new ArrayList<ProductSimple>();
-		
-		ProductService ps = new ProductService();
-		
-		int currPage=1; 		//현재 페이지
-		int limit=9; 			//한 페이지당 게시글을 몇개 보여줄건지
-		
-		
-		//currPage 가 있으면 currPage를 수정
-		if(request.getParameter("currPage")!=null){
-			currPage = Integer.parseInt(request.getParameter("currPage"));
-		}
-	
-		//페이지 관련 변수 전달용 VO 생성
-		PageInfo pi = new PageInfo(currPage,ps.getEventListCount(event),limit);
-	
-
-		list = ps.getEventTypeProductList(event,pi);
-		
-		
-		
-		
-		
+		HttpSession session = request.getSession();
+		PageInfo pi = new PageInfo();
+		ArrayList<ProductSimple> sessionList = (ArrayList<ProductSimple>)session.getAttribute("list");
+		ArrayList<ProductSimple> pagedList = new ArrayList<ProductSimple>();
+		String order = null;
 		String page ="";
 		
-		if(list!=null){
+		order  =request.getParameter("order");
+		if(order==null)
+			order="none";
+		ProductService ps = new ProductService();
+		
+		if(!order.equals("none")){
 			
-			page ="views/product/productList.jsp";
-			request.setAttribute("list", list);
+			sessionList = ps.getOrderdProductList(sessionList, order);
+		}
+		
+		int listSize = sessionList.size();
+		
+		
+		pi = new PageInfo(1,listSize,9);
+		
+		int loopEnd = listSize-1<pi.getEndRow()-1?listSize-1:pi.getEndRow()-1;
+		
+		for(int i=pi.getStartRow()-1;i<loopEnd+1;++i){
+			pagedList.add(sessionList.get(i));
+		}
+	
+		
+		if(pagedList.size()>0){
+			page ="views/product/productList.jsp";			
+			request.setAttribute("pagedList", pagedList);		
 			request.setAttribute("pi", pi);
-			request.setAttribute("event", event);
+			
 			
 		}else{
-			page = "views/common/errorPage.jsp";
+			page = "views/common/noResult.jsp";
 			request.setAttribute("msg", "상품 리스트를 불러올 수 없습니다.");
 		}
 		

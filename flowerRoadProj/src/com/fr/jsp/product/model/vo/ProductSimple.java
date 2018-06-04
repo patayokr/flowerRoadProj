@@ -1,58 +1,74 @@
 package com.fr.jsp.product.model.vo;
 
-public class ProductSimple implements java.io.Serializable{
+import java.util.Comparator;
+
+public class ProductSimple implements java.io.Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -8269690660877403820L;
-	
-	
+
 	private String productNum;
 	private String productName;
 	private int productPrice;
 	private String image;
 	private int reviewCount;
 	private String productTypeName;
+	private int reviewAvg;
+
 	public String getProductNum() {
 		return productNum;
 	}
+
 	public void setProductNum(String productNum) {
 		this.productNum = productNum;
 	}
+
 	public String getProductName() {
 		return productName;
 	}
+
 	public void setProductName(String productName) {
 		this.productName = productName;
 	}
+
 	public int getProductPrice() {
 		return productPrice;
 	}
+
 	public void setProductPrice(int productPrice) {
 		this.productPrice = productPrice;
 	}
+
 	public String getImage() {
 		return image;
 	}
+
 	public void setImage(String image) {
 		this.image = image;
 	}
+
 	public int getReviewCount() {
 		return reviewCount;
 	}
+
 	public void setReviewCount(int reviewCount) {
 		this.reviewCount = reviewCount;
 	}
+
 	public String getProductTypeName() {
 		return productTypeName;
 	}
+
 	public void setProductTypeName(String productTypeName) {
 		this.productTypeName = productTypeName;
 	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -62,9 +78,11 @@ public class ProductSimple implements java.io.Serializable{
 		result = prime * result + ((productNum == null) ? 0 : productNum.hashCode());
 		result = prime * result + productPrice;
 		result = prime * result + ((productTypeName == null) ? 0 : productTypeName.hashCode());
+		result = prime * result + reviewAvg;
 		result = prime * result + reviewCount;
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -96,18 +114,22 @@ public class ProductSimple implements java.io.Serializable{
 				return false;
 		} else if (!productTypeName.equals(other.productTypeName))
 			return false;
+		if (reviewAvg != other.reviewAvg)
+			return false;
 		if (reviewCount != other.reviewCount)
 			return false;
 		return true;
 	}
+
 	@Override
 	public String toString() {
 		return "ProductSimple [productNum=" + productNum + ", productName=" + productName + ", productPrice="
 				+ productPrice + ", image=" + image + ", reviewCount=" + reviewCount + ", productTypeName="
-				+ productTypeName + "]";
+				+ productTypeName + ", reviewAvg=" + reviewAvg + "]";
 	}
+
 	public ProductSimple(String productNum, String productName, int productPrice, String image, int reviewCount,
-			String productTypeName) {
+			String productTypeName, int reviewAvg) {
 		super();
 		this.productNum = productNum;
 		this.productName = productName;
@@ -115,12 +137,52 @@ public class ProductSimple implements java.io.Serializable{
 		this.image = image;
 		this.reviewCount = reviewCount;
 		this.productTypeName = productTypeName;
+		this.reviewAvg = reviewAvg;
 	}
+
+	public int getReviewAvg() {
+		return reviewAvg;
+	}
+
+	public void setReviewAvg(int reviewAvg) {
+		this.reviewAvg = reviewAvg;
+	}
+
 	public ProductSimple() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
+	public static Comparator<ProductSimple> reviewComparator = new Comparator<ProductSimple>() {
+
+		public int compare(ProductSimple p1, ProductSimple p2) {
+
+			return p2.getReviewAvg() - p1.getReviewAvg();
+		}
+	};
 	
+	public static Comparator<ProductSimple> priceDescComparator = new Comparator<ProductSimple>() {
+
+		public int compare(ProductSimple p1, ProductSimple p2) {
+
+			return p2.getProductPrice() -p1.getProductPrice();
+		}
+	};
 	
+	public static Comparator<ProductSimple> priceAscComparator = new Comparator<ProductSimple>() {
+
+		public int compare(ProductSimple p1, ProductSimple p2) {
+
+			return p1.getProductPrice() -p2.getProductPrice();
+		}
+	};
 	
+	public static Comparator<ProductSimple> priceNameComparator = new Comparator<ProductSimple>() {
+
+		public int compare(ProductSimple p1, ProductSimple p2) {
+
+			return p1.getProductName().compareTo(p2.getProductName());
+		}
+	};
+
 }

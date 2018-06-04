@@ -87,7 +87,7 @@ public class ProductDetailServlet extends HttpServlet {
 		
 		//연관 카테고리 상품 가져오기
 		relatedCategoryProduct= 
-				ps.getCategorizedProduct(p.getProductCategoryName(), new PageInfo(1,ps.getCategoryListCount(p.getProductCategoryName()),9));
+				ps.getProductList("none", p.getProductCategoryName());
 		
 		
 		

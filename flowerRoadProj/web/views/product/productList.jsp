@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" import="java.util.* ,com.fr.jsp.product.model.vo.ProductDetail,com.fr.jsp.common.PageInfo"%>
     
-<% ArrayList<ProductSimple> list = (ArrayList<ProductSimple>)request.getAttribute("list"); 
+<% ArrayList<ProductSimple> pagedList = (ArrayList<ProductSimple>)request.getAttribute("pagedList");
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	int reviewCount = (Integer)request.getAttribute("reviewCount");
 	String event = (String)request.getAttribute("event");
@@ -98,8 +98,13 @@
         .test{
         	border:1px solid;
         }
-     
-        
+     	.align-center-inner{
+     		float:none;
+     	}
+
+		.align-center-outer{
+			text-align:center;
+		}       
 	</style>
 
 
@@ -128,39 +133,39 @@
 			<div class="col-lg-12" ><!-- 여기에 상품 리스트. 사진들 들어갈거야 -->
 				<!-- <div class="row"> -->
 				<div class="linein">
-				<a href="<%=request.getContextPath()%>/productList.do?event=<%=event%>&category=<%=category %>&order=review" type="button" class="btn btn-primary">평점순</a></div>
+				<a href="<%=request.getContextPath()%>/sortProduct.do?order=review" type="button" class="btn btn-primary">평점순</a></div>
 				<div class="linein">
-				<a href="<%=request.getContextPath()%>/productList.do?event=<%=event%>&category=<%=category %>&order=priceDesc" type="button" class="btn btn-success">높은 가격순</a></div>
+				<a href="<%=request.getContextPath()%>/sortProduct.do?order=priceDesc" type="button" class="btn btn-success">높은 가격순</a></div>
 				<div class="linein">
-				<a href="<%=request.getContextPath()%>/productList.do?event=<%=event%>&category=<%=category %>&order=priceAsc" type="button" class="btn btn-info">낮은 가격순</a></div>
+				<a href="<%=request.getContextPath()%>/sortProduct.do?order=priceAsc" type="button" class="btn btn-info">낮은 가격순</a></div>
 				<div class="linein">
-				<a href="<%=request.getContextPath()%>/productList.do?event=<%=event%>&category=<%=category %>&order=byName" type="button" class="btn btn-warning">이름순</a></div>
+				<a href="<%=request.getContextPath()%>/sortProduct.do?order=byName" type="button" class="btn btn-warning">이름순</a></div>
 				<hr class="col-lg-12 hrline" style="float:center;">
 				
-				<%if(list!=null){ %>
-				<%for(int i=0;i<list.size();++i) {%>
+				<%if(pagedList!=null){ %>
+				<%for(int i=0;i<pagedList.size();++i) {%>
 				
   					<div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
     					<div class="col-lg-12 thumbnail items ">
-    					<a href="<%=request.getContextPath()%>/productDetail.do?productNum=+<%=list.get(i).getProductNum()%>">
-      						<img src="<%=request.getContextPath()%>/resources/images/product/<%=list.get(i).getImage()%>" alt="...">
+    					<a href="<%=request.getContextPath()%>/productDetail.do?productNum=+<%=pagedList.get(i).getProductNum()%>">
+      						<img src="<%=request.getContextPath()%>/resources/images/product/<%=pagedList.get(i).getImage()%>" alt="...">
       					</a>
       						<span class="label label-primary tag">Primary</span>
       						<span class="label label-success tag">success</span>
       						<div class="col-lg-12 caption">        						
-        						<h4 class="col-lg-12 "><br /><b class="font-title text-truncate"><%=list.get(i).getProductName() %></b></h4>        						
-        						<h4 class=" col-lg-12 "><%=list.get(i).getProductPrice() %>원</h4>
-        						<h5 class="col-lg-12 font-gray">리뷰 <span><%=list.get(i).getReviewCount() %></span></h5>  
+        						<h4 class="col-lg-12 "><br /><b class="font-title text-truncate"><%=pagedList.get(i).getProductName() %></b></h4>        						
+        						<h4 class=" col-lg-12 "><%=pagedList.get(i).getProductPrice() %>원</h4>
+        						<h5 class="col-lg-12 font-gray">리뷰 <span><%=pagedList.get(i).getReviewCount() %></span></h5>  
         						<div class="col-lg-12 ">  
         							
-        							<%if(!list.get(i).getProductTypeName().equals("디저트")&&
-        									!list.get(i).getProductTypeName().equals("메시지태그")&&
-        									!list.get(i).getProductTypeName().equals("카드")) {%>
-        							 <a class="col-lg-4 btn btn-default" role="button" onclick="addBasket('<%=list.get(i).getProductNum()%>');">장바구니</a> 
+        							<%if(!pagedList.get(i).getProductTypeName().equals("디저트")&&
+        									!pagedList.get(i).getProductTypeName().equals("메시지태그")&&
+        									!pagedList.get(i).getProductTypeName().equals("카드")) {%>
+        							 <a class="col-lg-4 btn btn-default" role="button" onclick="addBasket('<%=pagedList.get(i).getProductNum()%>');">장바구니</a> 
         							<a class="col-lg-7 col-lg-offset-1 btn btn-primary" role="button" 
-        							onclick="location.href='<%=request.getContextPath()%>/productDetail.do?productNum=+<%=list.get(i).getProductNum()%>'">바로구매</a>
+        							onclick="location.href='<%=request.getContextPath()%>/productDetail.do?productNum=+<%=pagedList.get(i).getProductNum()%>'">바로구매</a>
         							<%}else{ %>
-        							 <a class="col-lg-12 btn btn-default" role="button" onclick="addBasket('<%=list.get(i).getProductNum()%>');">장바구니</a> 
+        							 <a class="col-lg-12 btn btn-default" role="button" onclick="addBasket('<%=pagedList.get(i).getProductNum()%>');">장바구니</a> 
         							
         							<%} %>
         							 	
@@ -185,13 +190,13 @@
 	</div>
 	
 	<!--페이지 네이션  -->
-	<%if(pi!=null){ %>
-	<div class="container" style="text-align: center;">
-		
-		<div class="col-lg-12" style="float:none;">
+	
+	<div class="container align-center-outer" >
+		<%if(pi!=null){ %>
+		<div class="col-lg-12 align-center-inner" >
 			<ul class="pagination">
    				<li>
-      				<a href="<%=request.getContextPath()%>/productList.do?event=<%=event%>&currPage=<%=pi.getStartPage() %>&category=<%=category %>&order=<%=order%>" aria-label="Previous">
+      				<a href="<%=request.getContextPath()%>/productList.do?currPage=<%=pi.getStartPage() %>" aria-label="Previous">
         				<span aria-hidden="true">&laquo;</span>
       				</a>
     			</li>
@@ -200,7 +205,7 @@
     			<%if(pi.getCurrPage()<=pi.getStartPage()){ %>
     				<li class="disabled"><a >&lt;</a></li>
     			<%} else{ %>
-    				<li><a href="<%=request.getContextPath()%>/productList.do?event=<%=event%>&currPage=<%=pi.getCurrPage()-1%>&category=<%=category %>&order=<%=order%>">&lt;</a></li>
+    				<li><a href="<%=request.getContextPath()%>/productList.do?&currPage=<%=pi.getCurrPage()-1%>">&lt;</a></li>
     			<%} %>
     			
     				<%for(int i=pi.getStartPage();i<=pi.getEndPage();++i){ %>
@@ -208,17 +213,17 @@
     					<%if(i==pi.getCurrPage()){ %>
     						<li class="active"><a><%=i%></a></li>
     					<%} else { %>
-    						<li><a href="<%=request.getContextPath()%>/productList.do?event=<%=event%>&currPage=<%=i%>&category=<%=category %>&order=<%=order%>"><%=i%></a></li>
+    						<li><a href="<%=request.getContextPath()%>/productList.do?&currPage=<%=i%>"><%=i%></a></li>
     				<%} %>
     			<%} %>
     			
     			<%if(pi.getCurrPage()>=pi.getMaxPage()){ %>
     				<li class="disabled"><a >&gt;</a></li>
     			<%}else{ %>
-    				<li><a href="<%=request.getContextPath()%>/productList.do?event=<%=event%>&currPage=<%=pi.getCurrPage()+1%>&category=<%=category %>&order=<%=order%>">&gt;</a></li>
+    				<li><a href="<%=request.getContextPath()%>/productList.do?&currPage=<%=pi.getCurrPage()+1%>">&gt;</a></li>
     			<% } %>
     			<li>
-     				<a href="<%=request.getContextPath()%>/productList.do?event=<%=event%>&currPage=<%=pi.getEndPage()%>&category=<%=category %>&order=<%=order%>" aria-label="Next">
+     				<a href="<%=request.getContextPath()%>/productList.do?&currPage=<%=pi.getEndPage()%>" aria-label="Next">
         				<span aria-hidden="true">&raquo;</span>
       				</a>
     			</li>
@@ -226,10 +231,24 @@
 		
 		
 		</div>
-	
+		<%} %>
+		<div class="row ">
+			<div class="col-lg-12">
+			    <form class="form-inline" action="<%=request.getContextPath()%>/searchProduct.do">
+			    	<div class="form-group">
+			    		<label for="search" class='sr-only'>검색</label>
+			    		<input type="text" class="form-control" placeholder="내용" id="search" name="keyword"/>
+			    		<button type="submit" class="btn btn-default">검색하기</button>
+			    	</div>
+			    </form>
+			</div><!-- /.col-lg-6 -->
+		</div>
 	</div>
-   <%} %>
+	
+   
  
+ 
+    
    
    
 

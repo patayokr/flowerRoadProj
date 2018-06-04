@@ -125,7 +125,7 @@ public class ProductDao {
 	}
 
 	
-	//모든 상품 가져오기 페이지나누기 적용
+	//모든 상품 가져오기 페이지나누기 적용(사용 안함)
 	public ArrayList<ProductSimple> getProductList(Connection con, PageInfo pi) {
 
 		PreparedStatement pstmt = null;
@@ -223,213 +223,6 @@ public class ProductDao {
 	}
 
 	
-	//상품 리스트를 가져오기 위한 상품의 간략화된 정보 리스트 가져오기(이벤트별)
-	public ArrayList<ProductSimple> getEventTypeProductList(Connection con, String event, PageInfo pi) {
-		
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		ArrayList<ProductSimple> result = new ArrayList<ProductSimple>();
-		ProductSimple p = null;
-
-		try {
-			pstmt = con.prepareStatement(prop.getProperty("getpagedEventTypeProductList"));
-			
-			
-			
-			pstmt.setString(1, event);
-			pstmt.setInt(2, pi.getStartRow());
-			pstmt.setInt(3, pi.getEndRow());
-
-			rset = pstmt.executeQuery();
-
-			while (rset.next()) {
-
-				p = new ProductSimple();
-
-				p.setProductNum(rset.getString(2));
-				p.setProductName(rset.getString(3));
-				p.setProductPrice(rset.getInt(4));
-				p.setReviewCount(rset.getInt(5));
-				p.setImage(rset.getString(6));
-				p.setProductTypeName(rset.getString(7));
-
-				result.add(p);
-
-			}
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-
-		}
-
-		return result;
-	}
-
-	
-	//특정 이벤트 상품의 갯수 가져오기(페이지 나누기에 사용)
-	public int getEventProductCount(Connection con, String event) {
-		
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		int result =0;
-		
-		try {
-			pstmt = con.prepareStatement(prop.getProperty("getEventTypeProductCount"));
-			
-			pstmt.setString(1, event);
-			
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()){
-				result = rset.getInt(1);
-				
-			}
-			
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally{
-			
-			close(rset);
-			close(pstmt);
-		}
-		
-		return result;
-	}
-
-	//특정 카테고리의 상품갯수를 가져오는 함수(페이지 나눌때 사용)
-	public int getCategoryProductCount(Connection con, String category) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		int result =0;
-		
-		try {
-			pstmt = con.prepareStatement(prop.getProperty("getCategoryProductCount"));
-			
-			pstmt.setString(1, category);
-			
-			rset = pstmt.executeQuery();
-			
-			while(rset.next()){
-				result = rset.getInt(1);
-				
-			}
-			
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally{
-			
-			close(rset);
-			close(pstmt);
-		}
-		
-	
-		return result;
-	}
-
-	
-	//특정 이벤트 상품을 정렬한 리스트를 가져올 때 사용
-	public ArrayList<ProductSimple> getEventOrderdProductList(Connection con,String event ,String orderQuery, PageInfo pi) {
-		
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		ArrayList<ProductSimple> result = new ArrayList<ProductSimple>();
-		ProductSimple p = null;
-
-		try {
-			
-			String query = prop.getProperty("getpagedEventTypeOrderdProductList");
-			query = query.replace("!", orderQuery);
-			
-			pstmt = con.prepareStatement(query);
-			
-			pstmt.setString(1, event);
-			pstmt.setInt(2, pi.getStartRow());
-			pstmt.setInt(3, pi.getEndRow());
-			
-			rset = pstmt.executeQuery();
-
-			while (rset.next()) {
-
-				p = new ProductSimple();
-
-				p.setProductNum(rset.getString(2));
-				p.setProductName(rset.getString(3));
-				p.setProductPrice(rset.getInt(4));
-				p.setReviewCount(rset.getInt(5));
-				p.setImage(rset.getString(6));
-				p.setProductTypeName(rset.getString(7));
-
-				result.add(p);
-
-			}
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-
-		}
-
-		
-		return result;
-	}
-
-	
-	//특정 카테고리 속성을 가지는 간략화된 상품 리스트 가져오기
-	public ArrayList<ProductSimple> getCategorizedProductList(Connection con, String category, PageInfo pi) {
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-		ArrayList<ProductSimple> result = new ArrayList<ProductSimple>();
-		ProductSimple p = null;
-
-		
-		try {
-			pstmt = con.prepareStatement(prop.getProperty("getpagedCategorizedProductList"));
-			
-			
-			
-			pstmt.setString(1, category);
-			pstmt.setInt(2, pi.getStartRow());
-			pstmt.setInt(3, pi.getEndRow());
-
-			rset = pstmt.executeQuery();
-
-			while (rset.next()) {
-
-				p = new ProductSimple();
-				p.setProductNum(rset.getString(2));
-				p.setProductName(rset.getString(3));
-				p.setProductPrice(rset.getInt(4));
-				p.setReviewCount(rset.getInt(5));
-				p.setImage(rset.getString(6));
-				p.setProductTypeName(rset.getString(7));
-
-				result.add(p);
-
-			}
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			close(rset);
-			close(pstmt);
-
-		}
-
-		return result;
-	}
-
 
 	public ArrayList<ProductSimple> getOptionProductList(Connection con) {
 	
@@ -456,7 +249,7 @@ public class ProductDao {
 				p.setReviewCount(rset.getInt(4));
 				p.setImage(rset.getString(5));
 				p.setProductTypeName(rset.getString(6));
-
+				p.setReviewAvg(rset.getInt(7));
 				result.add(p);
 			}
 			
@@ -472,9 +265,13 @@ public class ProductDao {
 		return result;
 	}
 
-	//특정 카테고리의 정렬된 리스트를 가져올때 사용
-	public ArrayList<ProductSimple> getCategorizedOrderdProductList(Connection con, String category, String orderQuery,
-			PageInfo pi) {
+
+	
+	
+	
+	
+	public ArrayList<ProductSimple> getOrderedProductList(Connection con, String tableName, String columnName,
+			String columnValue, String order) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<ProductSimple> result = new ArrayList<ProductSimple>();
@@ -483,15 +280,17 @@ public class ProductDao {
 		
 		try {
 			
-			String query = prop.getProperty("getpagedCategorizedOrderdProductList");
-			query = query.replace("!", orderQuery);
+			String query = prop.getProperty("getOrderdProductList");
+			query = query.replace("1", tableName);
+			query = query.replace("2", columnName);
+			query = query.replace("3", order);
 			
 			
 			pstmt = con.prepareStatement(query);
 			
-			pstmt.setString(1, category);
-			pstmt.setInt(2, pi.getStartRow());
-			pstmt.setInt(3, pi.getEndRow());
+			
+			pstmt.setString(1, columnValue);
+			
 			
 			rset = pstmt.executeQuery();
 
@@ -505,7 +304,57 @@ public class ProductDao {
 				p.setReviewCount(rset.getInt(5));
 				p.setImage(rset.getString(6));
 				p.setProductTypeName(rset.getString(7));
-				
+				p.setReviewAvg(rset.getInt(8));
+				result.add(p);
+
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+
+		}
+
+		
+		return result;
+	}
+	
+	
+	public ArrayList<ProductSimple> getProductList(Connection con, String tableName, String columnName, String columnValue) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<ProductSimple> result = new ArrayList<ProductSimple>();
+		ProductSimple p = null;
+
+		
+		try {
+			
+			String query = prop.getProperty("getProductList");
+			query = query.replace("1", tableName);
+			query = query.replace("2", columnName);
+			
+		
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, columnValue);
+			
+			
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+
+				p = new ProductSimple();
+
+				p.setProductNum(rset.getString(2));
+				p.setProductName(rset.getString(3));
+				p.setProductPrice(rset.getInt(4));
+				p.setReviewCount(rset.getInt(5));
+				p.setImage(rset.getString(6));
+				p.setProductTypeName(rset.getString(7));
+				p.setReviewAvg(rset.getInt(8));
 
 				result.add(p);
 
@@ -524,11 +373,100 @@ public class ProductDao {
 		return result;
 	}
 	
+	public int getProductCount(Connection con, String tableName, String columnName, String columnValue) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		int result =0;
+		
+		try {
+			
+			String query = prop.getProperty("getProductCount");
+			query = query.replace("1", tableName);
+			query = query.replace("2", columnName);
+			
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, columnValue);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()){
+				result = rset.getInt(1);
+				
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			
+			close(rset);
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public ArrayList<ProductSimple> searchProduct(Connection con, String tableName, String columnName, String columnValue, String keyword) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ArrayList<ProductSimple> result = new ArrayList<ProductSimple>();
+		ProductSimple p = null;
+
+		
+		try {
+			
+			String query = prop.getProperty("searchProductList");
+			query = query.replace("1", tableName);
+			query = query.replace("2", columnName);
+			
+		
+			pstmt = con.prepareStatement(query);
+			
+			pstmt.setString(1, columnValue);
+			pstmt.setString(2,keyword);
+			
+			rset = pstmt.executeQuery();
+
+			while (rset.next()) {
+
+				p = new ProductSimple();
+
+				p.setProductNum(rset.getString(2));
+				p.setProductName(rset.getString(3));
+				p.setProductPrice(rset.getInt(4));
+				p.setReviewCount(rset.getInt(5));
+				p.setImage(rset.getString(6));
+				p.setProductTypeName(rset.getString(7));
+				p.setReviewAvg(rset.getInt(8));
+
+				result.add(p);
+
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+
+		}
+
+		
+		return result;
+	}
+
+
+	
 	// 등록된 모든 상품 리스트
 	public ArrayList<ProductDetail> admin_allProductList(Connection con) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	
 	// 오늘 등록한 상품 수
 	public int admin_todayRegiProductCount(Connection con) {
 		// TODO Auto-generated method stub
@@ -544,6 +482,18 @@ public class ProductDao {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+
+	
+
+	
+
+
+	
+
+
+	
+
 
 
 }

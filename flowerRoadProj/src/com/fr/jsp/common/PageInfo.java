@@ -31,7 +31,7 @@ public class PageInfo implements java.io.Serializable{
 	@Override
 	public String toString() {
 		return "PageInfo [currPage=" + currPage + ", listCount=" + listCount + ", limit=" + limit + ", maxPage="
-				+ maxPage + ", startPage=" + startPage + ", endPage=" + endPage + "]";
+				+ maxPage + ", startPage=" + startPage + ", endPage=" + endPage + ", startRow="+startRow+", endRow="+endRow+"]";
 	}
 
 	@Override
